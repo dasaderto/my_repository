@@ -1,0 +1,57 @@
+AddDefaultCharset UTF-8
+
+ErrorDocument 404 /views/errors/error404.php
+ErrorDocument 403 /views/errors/error403.php
+
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule ^/$ /index.php [QSA,L]
+RewriteRule ^admin/$ /views/admin/adminPanel.php [QSA,L]
+RewriteRule ^readbook-([a-zA-Z0-9+\.\-\_]+)$ /files/$1 [QSA,L]
+RewriteRule ^error403/$ /views/errors/error403.php [QSA,L]
+RewriteRule ^error404/$ /views/errors/error404.php [QSA,L]
+RewriteRule ^admin/registration/$ /views/admin/registration.php [QSA,L]
+RewriteRule ^admin/editusers/$ /views/admin/rolework.php [QSA,L]
+RewriteRule ^admin/addnewstud/$ /views/admin/addStud.php [QSA,L]
+RewriteRule ^admin/addworkbook/$ /views/admin/addWork.php [QSA,L]
+RewriteRule ^admin/editworkbook/$ /views/admin/editWork.php [QSA,L]
+RewriteRule ^admin/report/$ /views/admin/getReport.php [QSA,L]
+RewriteRule ^categories/$ /views/public/hiddenCategories.php [QSA,L]
+RewriteRule ^allAuthors/$ /views/public/hiddenAuthors.php [QSA,L]
+RewriteRule ^error/$ /views/admin/error.php [QSA,L]
+RewriteRule ^upload/$ /views/admin/download.php [QSA,L]
+RewriteRule ^category/$ /views/public/category.php [QSA,L]
+RewriteRule ^details/$ /views/public/details.php [QSA,L]
+RewriteRule ^search/$ /views/public/search.php [QSA,L]
+RewriteRule ^about/$ /views/public/about.php [QSA,L]
+RewriteRule ^avtor-na-bukvu-([А-Я]+)$ /views/public/authors.php?author=$1 [L,QSA]
+
+RewriteRule ^category/category-([a-яА-Яa-zA-Z0-9+\.\-\_]+)/page-([0-9]+)$ /views/public/category.php?cat=$1&page=1 [L,QSA]
+RewriteRule ^category/category-([a-яА-Яa-zA-Z0-9+\.\-\_]+)$ /views/public/category.php?cat=$1 [L,QSA]
+
+RewriteRule ^category/author-([a-яА-Яa-zA-Z0-9+\.\-\_]+)/page-([0-9]+)$ /views/public/category.php?authors=$1&page=$2 [L,QSA]
+RewriteRule ^category/author-([a-яА-Яa-zA-Z0-9+\.\-\_]+)$ /views/public/category.php?authors=$1 [L,QSA]
+
+RewriteRule ^category/category-([a-яА-Яa-zA-Z0-9+\.\-\_]+)/([a-яА-Яa-zA-Z0-9+\-\.\_]+)/page-([0-9]+)$ /views/public/category.php?cat=$1&class=$2&page=$3 [L,QSA]
+RewriteRule ^category/category-([a-яА-Яa-zA-Z0-9+\.\-\_]+)/([a-яА-Яa-zA-Z0-9+\-\.\_]+)$ /views/public/category.php?cat=$1&class=$2 [L,QSA]
+
+RewriteRule ^details/book-([a-яА-Яa-zA-Z0-9+\.\-\_]+)/author-([a-яА-Яa-zA-Z0-9+\.\-\_]+)$ /views/public/details.php?book=$1&bookauthor=$2 [L,QSA]
+
+RewriteRule ^search/ask-([a-яА-Яa-zA-Z0-9+\-\_]+)/page-([0-9]+)$ /views/public/search.php?search_list=$1&page=$2 [L,QSA]
+RewriteRule ^search/ask-([a-яА-Яa-zA-Z0-9+\-\_]+)$ /views/public/search.php?search_list=$1 [L,QSA]
+
+
+php_value session.gc_maxlifetime 604800
+# Защита
+
+Options +FollowSymLinks
+RewriteCond %{QUERY_STRING} (\<|%3C).*script.*(\>|%3E) [NC,OR]
+RewriteCond %{QUERY_STRING} GLOBALS(=|\[|\%[0-9A-Z]{0,2}) [OR]
+RewriteCond %{QUERY_STRING} _REQUEST(=|\[|\%[0-9A-Z]{0,2})
+RewriteRule ^(.*)$ index.php [F,L]
+
+<FilesMatch «.(gif|jpeg|png|swf|js|css|pdf|ico)$»> 
+Header set Cache-Control «max-age=1234000» 
+</FilesMatch>

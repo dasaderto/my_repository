@@ -1,0 +1,9 @@
+  public function TakeModelController()
+  {
+    if (isset($_GET['cat'])){$this->cat=(int)$_GET['cat'];}
+    if (isset($_GET['book'])){$this->book=(int)$_GET['book'];}
+    if (isset($_GET['class'])){$this->class=htmlspecialchars($_GET['class']);}
+    if (isset($_POST['userdata'])){$this->userdata=htmlspecialchars($_POST['userdata']);}
+    if (isset($_POST['editusername'])){$this->editusername=htmlspecialchars($_POST['editusername']);}
+    if (isset($_POST['deleteuserid'])){$this->deleteuserid=htmlspecialchars($_POST['deleteuserid']);}
+    }
